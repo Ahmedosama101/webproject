@@ -12,7 +12,17 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+<style>
+    table, td, th {
+  border: 1px solid black;
+}
+th, td {
+  padding: 10px;
+}
+    table {
+        text-align: center;
+    }
+</style>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -58,7 +68,8 @@
                                 <li><a class="dropdown-item" href="{{ route('project.create') }}"> Add Project</a></li>
                                 <li><a class="dropdown-item" href="{{ route('project.toedit') }}"> Edit Project</a> </li>
                                 <li><a class="dropdown-item" href="{{ route('project.updatestatus') }}"> Update Project Status</a> </li>
-                                <li> <a class="dropdown-item" href="{{ route('project.delete') }}">Delete Project</a> </li>
+                                <li><a class="dropdown-item" href="{{ route('project.topdf') }}"> Projects Reports</a></li>
+                                <li><a class="dropdown-item" href="{{ route('project.delete') }}">Delete Project</a></li>
                             </ul>
                         </div>
                         <div class="dropdown ms-4">

@@ -3,8 +3,12 @@ namespace App\Models;
 namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\systemUser;
+use App\Models\ProgressReport;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class projectController extends Controller
 {
@@ -15,6 +19,63 @@ class projectController extends Controller
     {
         $projects = Project::all(); // select * from students
         return view('project.index',compact('projects'));
+    }
+
+//    public function projectpdf(Project $project){
+  //      $pdf = Pdf::loadView('project.projectpdf');
+     //   return $pdf->download('projectpdf.pdf');
+    //}
+
+    public function topdf()
+    {
+        $projects = Project::all(); // select * from students
+        return view('project.topdf', compact('projects'));
+    }
+
+    public function progress_report(Project $project)
+    {
+        return view('project.progress_report', compact('project'));
+    }
+
+
+    public function storereport(Request $request, $project_id)
+{
+    $progressReport = new ProgressReport;
+    $progressReport->progress_date = $request->progress_date;
+    $progressReport->description = $request->description;
+    $progressReport->project_id = $project_id;
+    $progressReport->save();
+
+    // Manually create the URL for generateProjectPDF method
+    $url = URL::route('project.generateProjectPDF', ['projectId' => $project_id]);
+
+    // Redirect to the generated URL
+    return Redirect::to($url);
+}
+
+
+    
+
+    public function generateProjectPDF($projectId)
+    {
+        $project = Project::findOrFail($projectId);
+        
+        // Retrieve progress reports associated with the project
+        $progressReports = ProgressReport::where('project_id', $projectId)->get();
+
+        $data = [
+            'project' => $project,
+            'progressReports' => $progressReports,
+        ];
+
+        // If you are using the 'barryvdh/laravel-dompdf' package, you can load the view like this:
+        $pdf = PDF::loadView('project.projectpdf', $data);
+
+        // Customize the filename as needed
+        $filename = 'project_report_' . $project->name . '.pdf';
+
+        // Return the PDF as a download
+        return $pdf->download($filename);
     }
 
     public function delete()
@@ -34,6 +95,8 @@ class projectController extends Controller
         return view('project.updatestatus', compact('projects'));
     }
     
+
+    
     public function status(Project $project)
     {
         return view('project.status', compact('project'));
@@ -44,8 +107,7 @@ class projectController extends Controller
      */
     public function create()
     {
-        $developers = systemUser::where('role', 'Developer')->get();
-        return view('project.create', compact('developers'));
+        return view('project.create');
     }
     
     /**

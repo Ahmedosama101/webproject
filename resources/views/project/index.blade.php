@@ -3,6 +3,7 @@
 @section('body')
     <div class="d-flex align-items-center justify-content-between">
         <h1 class="mb-0">Project Management Dashboard</h1>
+<!--        <a href="/projectpdf" class="btn btn-succsess">Export PDF</a>  -->
     </div>
     <table>
         <thead>
@@ -30,18 +31,25 @@
                     <td>{{ $project['enddate'] }}</td>
                     <td>{{ $project['estimatedduration'] }}</td>
                     <td>{{ $project['status'] }}</td>
-                    <td>{{ optional($project->leadDeveloper)->name }}</td>
+                    <td>
+                        @if($project->leadDeveloper)
+                            {{ optional($project->leadDeveloper)->name }}
+                        @else
+                            Lead Developer Not Found
+                        @endif
+                    </td>
                     <?php
-                    $projectId = $project['projectsid'];
-                      $developers = \App\Models\ProjectUser::where('projectid', $projectId)->get();
+                        $projectId = $project['projectsid'];
+                        $developers = \App\Models\ProjectUser::where('projectid', $projectId)->get();
                      ?>
                    <td>  @foreach ($developers as $developer)
                    <?php
-            $user = \App\Models\SystemUser::find($developer->userid);
-        ?>
-        {{ $user->name }}
+                        $user = \App\Models\SystemUser::find($developer->userid);
+                    ?>
+                        {{ $user->name }}
                     @endforeach
                     </td>
+                </tr>
             @endforeach
         </tbody>
     </table>

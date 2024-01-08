@@ -1,7 +1,7 @@
 @extends('layouts.app')
  
 @section('body')
-    <h1 class="mb-0">Edit project</h1>
+    <h1 class="mb-0">Edit {{ $project->name }} project information</h1>
     <hr />
     <form action="{{ route('project.update', $project->projectsid) }}" method="POST">
 
@@ -38,7 +38,7 @@
         <div class="row">
             <div class="col mb-3">
                 <?php
-                    $developers = \App\Models\User::where('role', '4')->get();
+                    $developers = \App\Models\User::where('role', '3')->get();
                 ?>
                 <label for="leaddeveloper">Project Lead Developer:</label>
                     <select name="leaddeveloper" id="leaddeveloper" class="inputsize form-control" required>
@@ -147,11 +147,9 @@
                 </div>
            </div>   
         </div>
-
-        <div class="row">
-            <div class="d-grid">
-                <button class="btn btn-warning">Update</button>
-            </div>
+        
+        <div class="text-center">
+            <button type="button" class="btn btn-primary">Update</button>
         </div>
     </form>
 @endsection

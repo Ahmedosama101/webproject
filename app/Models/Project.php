@@ -31,7 +31,7 @@ class Project extends Model
    
     public function leadDeveloper()
     {
-        return $this->belongsTo(User::class, 'leaddeveloper')->where('role', 4);
+        return $this->belongsTo(SystemUser::class, 'leaddeveloper', 'id');
     }
 
     public function users()
@@ -48,4 +48,5 @@ class Project extends Model
     {
         return $this->belongsTo(User::class, 'owner', 'id');
     }   
+    
 }

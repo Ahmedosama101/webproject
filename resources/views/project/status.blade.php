@@ -1,7 +1,7 @@
 @extends('layouts.app')
  
 @section('body')
-    <h1 class="mb-0">Update Status</h1>
+    <h1 class="mb-0">Update Status {{ $project->name }}</h1>
     <hr />
     <form action="{{ route('project.update', $project->projectsid) }}" method="POST">
         

@@ -44,7 +44,7 @@
             </div>
             <div class="col mb-3">
             <?php
-                $developers = \App\Models\User::where('role', '4')->get();
+                $developers = \App\Models\User::where('role', '3')->get();
             ?>
             <label for="leaddeveloper">Project Lead Developer:</label>
             <select name="leaddeveloper" id="leaddeveloper" class="inputsize form-control" required>
@@ -74,7 +74,7 @@
             </div>
         </div>
         <br>
-</div><button type="submit" class="btn btn-primary">Add Project</button>
+        <button type="submit" class="btn btn-primary">Add Project</button>
     </form>
 </div>
 @endsection
