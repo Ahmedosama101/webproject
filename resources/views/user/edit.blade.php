@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col mb-3">
                 <label class="form-label">Role</label>
-                <div>
+                <div class="custom-dropdown">
                     <select class="form-control" name="role" id="role">
                         <option value="1"{{ $user->role == '1' ? 'selected' : '' }}>Admin</option>
                         <option value="2"{{ $user->role == '2' ? 'selected' : '' }}>Manager</option>

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'ITMS') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -22,6 +22,34 @@ th, td {
     table {
         text-align: center;
     }
+    .dropdown:hover .dropdown-menu {
+    display: block;
+}
+.custom-dropdown {
+        position: relative;
+    }
+
+    .custom-dropdown select {
+        width: 100%;
+        cursor: pointer;
+        box-sizing: border-box; /* Ensure padding is included in the width */
+    }
+
+    .custom-dropdown select:focus {
+        outline: none;
+        border-color: #007bff; /* Change the color to match your design */
+    }
+
+    .custom-dropdown::after {
+        content: "\25BC";
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+    
+
 </style>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -31,7 +59,7 @@ th, td {
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'ITMS') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -43,7 +71,9 @@ th, td {
                     @if(auth()->check())
                         @if(auth()->user()->role == 1) <!-- Superadmin -->
                         <div class="dropdown show-on-hover">
-                         <a class="btn dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Projects</a>
+                        <a class="btn dropdown-toggle" href="" role="button" id="projectsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('images/projecticon.svg') }}" alt="Project Icon" style="height: 20px; width: 20px;"> Projects
+                        </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ route('project.index') }}">View Project</a></li>
                                 <li><a class="dropdown-item" href="{{ route('project.create') }}"> Add Project</a></li>
@@ -72,15 +102,16 @@ th, td {
                                 <li><a class="dropdown-item" href="{{ route('project.delete') }}">Delete Project</a></li>
                             </ul>
                         </div>
-                        <div class="dropdown ms-4">
-                         <a class="btn dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Users</a>
+                         <div class="dropdown ms-4">
+                            <a class="btn dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Users</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ route('user.index') }}">View Users</a></li>
                                 <li><a class="dropdown-item" href="{{ route('user.create') }}"> Add Users</a></li>
-                                <li><a class="dropdown-item" href="{{ route('user.makeedit') }}"> Edit Users</a> </li>
-                                <li> <a class="dropdown-item" href="{{ route('user.delete') }}">Delete Users</a> </li>
+                                <li><a class="dropdown-item" href="{{ route('user.makeedit') }}"> Edit Users</a></li>
+                                <li><a class="dropdown-item" href="{{ route('user.delete') }}">Delete Users</a></li>
                             </ul>
                         </div>
+
                         @elseif(auth()->user()->role == 3) <!-- Lead Developer -->
                             <li class="nav-item active">
                                 <a class="nav-link" href="{{ route('project.index') }}"> View Project</a>
@@ -95,8 +126,9 @@ th, td {
 
                         @elseif(auth()->user()->role == 5) <!-- Owner -->
                         <li class="nav-item active">
+                                <a class="nav-link" href="{{ route('project.requestform') }}"> Request Project</a>
                                 <a class="nav-link" href="{{ route('project.index') }}"> View Project</a>
-                        </li>
+                            </li>
                         @endif
                     @endif
                     </ul>
@@ -110,12 +142,13 @@ th, td {
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
+<!--
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+-->
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

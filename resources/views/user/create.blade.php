@@ -21,8 +21,8 @@
             </div>
             <div class="form-group">
                 <label for="role">Role:</label>
-                <div>
-                    <select class="form-control" name="role" id="role">
+                <div class="custom-dropdown">
+                    <select class="form-control" name="role" id="role" required>
                         <option value="" disabled selected>Select user role</option>
                         <option value="1">Admin</option>
                         <option value="2">Manager</option>

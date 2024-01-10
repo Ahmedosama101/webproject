@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\systemUser;
 use App\Models\ProgressReport;
+use App\Models\ProjectRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -15,6 +16,7 @@ class projectController extends Controller
      /**
      * Display a listing of the resource.
      */
+    
     public function index()
     {
         $projects = Project::all(); // select * from students
@@ -96,7 +98,32 @@ class projectController extends Controller
     }
     
 
+
+    public function requestform()
+    {
+        return view('project.requestform');
+    }
     
+    public function storerequest(Request $request)
+    {
+        $req = new ProjectRequest;
+        $req->name = $request->name;
+        $req->type = $request->type;
+        $req->description = $request->description;
+        $req->user_id = auth()->id(); 
+        $req->user_name = auth()->user()->name;
+        $req->save();
+
+        return redirect()->route('project.index')->withSuccess('New project request added successfully');
+    }
+    
+    public function viewRequests()
+    {
+        // Get all project requests...
+        $req = ProjectRequest::all();
+        return view('project.requests',compact('req'));
+    }
+
     public function status(Project $project)
     {
         return view('project.status', compact('project'));
@@ -158,6 +185,8 @@ class projectController extends Controller
     public function update(Request $request, Project $project)
     {
         $project->update($request->all());
+        $developerIds = $request->input('developers');
+        $project->developers()->sync($developerIds);
         return redirect()->route('project.index')->with('success', 'Project updated successfully');
     }
 

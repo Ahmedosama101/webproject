@@ -12,7 +12,7 @@
                 <th>Owner</th>
                 <th>Type</th>
                 <th>Status</th>
-                <th>Report</th>
+                <th style="border-left: 1px solid #000000">Report</th>
             </tr>
         </thead>
         <tbody>
@@ -22,8 +22,17 @@
                     <td>{{ $project['name'] }}</td>
                     <td>{{ $project['owner'] }}</td>
                     <td>{{ $project['type'] }}</td>
-                    <td>{{ $project['status'] }}</td>
-                    <td><a href="{{route('project.progress_report',$project->projectsid)}}" class="btn btn-success">Project Report</a></td>
+                    <td style="background-color: 
+                @if($project['status'] == 'Ahead of Target') MediumAquaMarine
+                @elseif($project['status'] == 'Off Target') OrangeRed
+                @elseif($project['status'] == 'On Target') #FDAB3D
+                @elseif($project['status'] == 'Completed') PowderBlue
+                @else Gainsboro
+                @endif
+            ">
+                {{ $project['status'] }}
+            </td>
+                 <td style="border-left: 1px solid #000000"><a href="{{route('project.progress_report',$project->projectsid)}}" class="btn btn-info">Project Report</a></td>
                 </tr>
             @endforeach
         </tbody>

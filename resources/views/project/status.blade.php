@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col mb-3">
             <label class="form-label">Status</label>
-             <div>
+             <div class="custom-dropdown">
                 <select class="inputsize form-control" name="status" id="status">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->status == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -28,7 +28,7 @@
             </div>
             <div class="col mb-3">
             <label class="form-label">Initiation</label>
-                <div>
+                <div class="custom-dropdown">
                     <select class="inputsize form-control" name="initiation" id="initiation">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->initiation == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col mb-3">
             <label class="form-label">Planning</label>
-                <div>
+                <div class="custom-dropdown">
                     <select class="inputsize form-control" name="planning" id="planning">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->planning == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -52,7 +52,7 @@
             </div>
             <div class="col mb-3">
             <label class="form-label">Design</label>
-                <div>
+                <div class="custom-dropdown"> 
                     <select class="inputsize form-control" name="design" id="design">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->design == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -65,7 +65,7 @@
         <div class="row">
         <div class="col mb-3">
            <label class="form-label">Testing</label>
-                <div>
+                <div class="custom-dropdown">
                     <select class="inputsize form-control" name="testing" id="testing">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->testing == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -76,7 +76,7 @@
            </div>
            <div class="col mb-3">
                 <label class="form-label">Deploy</label>
-                  <div>
+                  <div class="custom-dropdown">
                     <select class="inputsize form-control" name="deploy" id="deploy">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->deploy == 'On Target' ? 'selected' : '' }}>On Target</option>

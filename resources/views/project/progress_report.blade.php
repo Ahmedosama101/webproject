@@ -30,7 +30,7 @@
        
         <div class="row">
             <div class="d-grid">
-                <button class="btn btn-warning">Submit Progress Report</button>
+                <button class="btn btn-warning">Submit and Download Progress Report</button>
             </div>
         </div>
     </form>

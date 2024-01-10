@@ -22,8 +22,17 @@
                     <td>{{ $project['name'] }}</td>
                     <td>{{ $project['owner'] }}</td>
                     <td>{{ $project['type'] }}</td>
-                    <td>{{ $project['status'] }}</td>
-                    <td><a class="btn btn-warning" href="{{route('project.edit',$project->projectsid)}}">Edit</a></td>
+                    <td style="background-color: 
+                @if($project['status'] == 'Ahead of Target') MediumAquaMarine
+                @elseif($project['status'] == 'Off Target') OrangeRed
+                @elseif($project['status'] == 'On Target') #FDAB3D
+                @elseif($project['status'] == 'Completed') PowderBlue
+                @else Gainsboro
+                @endif
+            ">
+                {{ $project['status'] }}
+            </td>
+               <td><x-tabler-edit /><a class="btn btn-warning" href="{{route('project.edit',$project->projectsid)}}">Edit</a></td>
                 </tr>
             @endforeach
         </tbody>

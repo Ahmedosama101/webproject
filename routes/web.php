@@ -41,6 +41,10 @@ Route::match(['post', 'put'], 'projects/storereport/{project}', [ProjectControll
 // Route to generate the PDF
 Route::get('projects/generateProjectPDF/{projectId}', [ProjectController::class, 'generateProjectPDF'])->name('project.generateProjectPDF');
 
+Route::get('requestform', [ProjectController::class,'requestform'])->name('project.requestform');
+Route::post('/project/storerequest', [ProjectController::class,'storerequest'])->name('project.storerequest');
+Route::get('/project/requests', [ProjectController::class,'viewRequests'])->name('project.requests');
+
 
 //Route::get('/project/{projectId}/pdf', [ProjectController::class, 'generateProjectPDF'])->name('project.pdf');
 /*Route::get('/project/{projectId}/submit-progress-report', [ProjectController::class, 'showProgressReportForm'])
@@ -87,9 +91,6 @@ Route::get('developer',function(){
 Route::get('owner',function(){
     return view('owner');
 })->name('owner')->middleware('owner');
-
-Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

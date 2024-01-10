@@ -5,8 +5,8 @@
         <h1 class="mb-0">Project Management Dashboard</h1>
 <!--        <a href="/projectpdf" class="btn btn-succsess">Export PDF</a>  -->
     </div>
-    <table>
-        <thead>
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
                 <th>Project ID</th>
                 <th>Name</th>
@@ -30,8 +30,16 @@
                     <td>{{ $project['startdate'] }}</td>
                     <td>{{ $project['enddate'] }}</td>
                     <td>{{ $project['estimatedduration'] }}</td>
-                    <td>{{ $project['status'] }}</td>
-                    <td>
+                    <td style="background-color: 
+                @if($project['status'] == 'Ahead of Target') MediumAquaMarine
+                @elseif($project['status'] == 'Off Target') OrangeRed
+                @elseif($project['status'] == 'On Target') #FDAB3D
+                @elseif($project['status'] == 'Completed') PowderBlue
+                @else Gainsboro
+                @endif
+            ">
+                {{ $project['status'] }}
+            </td>                    <td>
                         @if($project->leadDeveloper)
                             {{ optional($project->leadDeveloper)->name }}
                         @else

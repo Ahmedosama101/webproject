@@ -19,8 +19,8 @@
         </div>
         <div class="row">
             <div class="col mb-3">
-            <label for="planning">Project Type:</label>
-                <div>
+                <label for="planning">Project Type:</label>
+                <div class="custom-dropdown">
                     <select name="type" id="type" class="inputsize form-control">
                         <option value="" disabled selected>Select Project Type</option> 
                         <option value="New System">New System</option>
@@ -36,34 +36,50 @@
 
 
         <div class="row">
-            <div class="col mb-3">
-                <?php
-                    $developers = \App\Models\User::where('role', '3')->get();
-                ?>
-                <label for="leaddeveloper">Project Lead Developer:</label>
-                    <select name="leaddeveloper" id="leaddeveloper" class="inputsize form-control" required>
-                        <option value="" disabled>{{ optional($project->leadDeveloper)->name }}</option> 
-                        @foreach ($developers as $developer)
-                            <option value="{{ $developer->id }}">{{ $developer->name }}</option>
-                        @endforeach
-                    </select>
-            </div>
+        <div class="col mb-3">
+    <?php
+    $developers = \App\Models\User::where('role', '3')->get();
+    ?>
+    <label for="leaddeveloper">Project Lead Developer:</label>
+    <div class="custom-dropdown">
+    <select name="leaddeveloper" id="leaddeveloper" class="inputsize form-control" required>
+        @foreach ($developers as $developer)
+            <option value="{{ $developer->id }}"
+                @if($developer->id == $project->leadDeveloper->id) selected @endif
+            >
+                {{ $developer->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+</div>
+
 
             <div class="col mb-3">
-            <?php
-            $developers = \App\Models\User::where('role', '4')->get();
-            ?>
-            <label for="developer">Project Developers:</label>    
-            <div class="mt-2">
-                @foreach ($developers as $developer)
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="developers[]" value="{{ $developer->id }}" id="developer_{{ $developer->id }}">
-                        <label class="form-check-label" for="developer_{{ $developer->id }}">
-                            {{ $developer->name }}
-                        </label>
-                    </div>
-                @endforeach
+    <?php
+    $developers = \App\Models\User::where('role', '4')->get();
+
+    // Fetch the developer IDs associated with the project from the database
+    $projectDeveloperIds = DB::table('project_user') // replace 'project_developer' with your actual pivot table name
+                            ->where('projectid', $project->projectsid)
+                            ->pluck('userid')
+                            ->toArray();
+    ?>
+    <label for="developer">Project Developers:</label>    
+    <div class="mt-2">
+        @foreach ($developers as $developer)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="developers[]" value="{{ $developer->id }}" id="developer_{{ $developer->id }}"
+                @if(in_array($developer->id, $projectDeveloperIds)) checked @endif
+                >
+                <label class="form-check-label" for="developer_{{ $developer->id }}">
+                    {{ $developer->name }}
+                </label>
             </div>
+        @endforeach
+    </div>
+</div>
+
         </div>
         <div class="row">
             <div class="col mb-3">
@@ -78,7 +94,7 @@
         <div class="row">
             <div class="col mb-3">
             <label class="form-label">Status</label>
-             <div>
+            <div class="custom-dropdown">
                 <select class="inputsize form-control" name="status" id="status">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->status == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -89,7 +105,7 @@
             </div>
             <div class="col mb-3">
             <label class="form-label">Initiation</label>
-                <div>
+            <div class="custom-dropdown">
                     <select class="inputsize form-control" name="initiation" id="initiation">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->initiation == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -102,7 +118,7 @@
         <div class="row">
             <div class="col mb-3">
             <label class="form-label">Planning</label>
-                <div>
+            <div class="custom-dropdown">
                     <select class="inputsize form-control" name="planning" id="planning">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->planning == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -113,7 +129,7 @@
             </div>
             <div class="col mb-3">
             <label class="form-label">Design</label>
-                <div>
+            <div class="custom-dropdown">
                     <select class="inputsize form-control" name="design" id="design">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->design == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -126,7 +142,7 @@
         <div class="row">
         <div class="col mb-3">
            <label class="form-label">Testing</label>
-                <div>
+           <div class="custom-dropdown">
                     <select class="inputsize form-control" name="testing" id="testing">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->testing == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -137,7 +153,7 @@
            </div>
            <div class="col mb-3">
                 <label class="form-label">Deploy</label>
-                  <div>
+                <div class="custom-dropdown">
                     <select class="inputsize form-control" name="deploy" id="deploy">
                         <option value="" disabled selected>Select Project Status</option> 
                         <option value="On Target" {{ $project->deploy == 'On Target' ? 'selected' : '' }}>On Target</option>
@@ -148,8 +164,10 @@
            </div>   
         </div>
         
-        <div class="text-center">
-            <button type="button" class="btn btn-primary">Update</button>
+        <div class="row">
+            <div class="d-grid">
+                <button class="btn btn-warning">Update</button>
+            </div>
         </div>
     </form>
 @endsection

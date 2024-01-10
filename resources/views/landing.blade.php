@@ -43,13 +43,14 @@
           <li class="nav-item">
             <a class="nav-link" href="#feedback-section">Team</a>
           </li>
-            @if (Route::has('login'))
+          @if (Route::has('login'))
                 <li class="nav-item btn-contact-us pl-4 pl-lg-0">
             @auth
-            <button class="btn btn-info" ><a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Projects Page</a></button>
+            <button class="btn btn-info" ><a href="{{ route('project.index') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Projects</a></button>
             @else
             <button class="btn btn-info" ><a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a></button>
             </li>
+            @endauth
             @endif
         </ul>
       </div>
@@ -204,13 +205,13 @@
           <div class="col-12 col-md-6 col-lg-3 grid-margin">
             <img src="images/Group2.svg" alt="" class="pb-2">
             <div class="pt-2">
-              <p class="text-muted m-0">mikayla_beer@feil.name</p>
-              <p class="text-muted m-0">906-179-8309</p>
+              <p class="text-muted m-0">ITMS@uniten.edu.my</p>
+              <p class="text-muted m-0">+6017-6404064</p>
             </div>         
           </div>
           <div class="col-12 col-md-6 col-lg-3 grid-margin">
             <h5 class="pb-2">Get in Touch</h5>
-            <p class="text-muted">Don’t miss any updates of our new templates and extensions.!</p>
+            <p class="text-muted">Have questions or need assistance? Reach out to our support team at</p>
             <form>
               <input type="text" class="form-control" id="Email" placeholder="Email id">
             </form>
@@ -224,16 +225,6 @@
             <a href="#" ><p class="m-0 pt-1 pb-2">Privacy policy</p></a> 
             <a href="#"><p class="m-0 pt-1 pb-2">Cookie Policy</p></a> 
             <a href="#"><p class="m-0 pt-1">Discover</p></a> 
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 grid-margin">
-              <h5 class="pb-2">Our address</h5>
-              <p class="text-muted">518 Schmeler Neck<br>Bartlett. Illinois</p>
-              <div class="d-flex justify-content-center justify-content-md-start">
-                <a href="#"><span class="mdi mdi-facebook"></span></a>
-                <a href="#"><span class="mdi mdi-twitter"></span></a>
-                <a href="#"><span class="mdi mdi-instagram"></span></a>
-                <a href="#"><span class="mdi mdi-linkedin"></span></a>
-              </div>
           </div>
         </div>  
       </section>
